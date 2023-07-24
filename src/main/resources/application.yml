@@ -29,3 +29,4 @@ logging:
     root: info
     com:
       example: debug
+    org.hibernate.sql: debug
