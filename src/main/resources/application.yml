@@ -1,0 +1,31 @@
+server:
+  port: 9000
+  servlet:
+    context-path: /api
+
+# JPA
+spring:
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+  main:
+    allow-bean-definition-overriding: true
+
+  # Swagger
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # import application-local.yml
+  profiles:
+    include: local
+
+# log level setting
+logging:
+  level:
+    root: info
+    com:
+      example: debug
