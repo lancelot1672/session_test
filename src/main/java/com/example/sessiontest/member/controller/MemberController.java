@@ -20,12 +20,15 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/test")
-    public ResponseEntity<String> test(){
+    public ResponseEntity<String> test(HttpServletRequest request){
         return new ResponseEntity<String>( "Success", HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(HttpServletRequest request, @RequestBody MemberLoginDTO memberLoginDTO){
+    @GetMapping("/login")
+    public ResponseEntity<?> login(HttpServletRequest request, @RequestParam String id, @RequestParam String password){
+
+        MemberLoginDTO memberLoginDTO = MemberLoginDTO.builder().id(id).password(password).build();
+
         // Session 로그인
         HttpSession session = request.getSession(true);
 
@@ -33,21 +36,26 @@ public class MemberController {
             log.debug(">> login 정보가 없습니다. 로그인 진행");
         }
         MemberLoginDTO login = memberService.login(memberLoginDTO);
-        log.debug("Login User Info : {}", login.toString());
+        log.debug(">> Login User Info : {}", login.toString());
+
         session.setAttribute("userId", login.getId());
         session.setMaxInactiveInterval(1800);
 
         return new ResponseEntity<String>("login Success", HttpStatus.OK);
     }
-    @PostMapping("/join")
-    public ResponseEntity<?> join(HttpServletRequest request, @RequestBody MemberJoinDTO memberJoinDTO){
+    @GetMapping("/join")
+    public ResponseEntity<?> join(HttpServletRequest request, @RequestParam String id, @RequestParam String password, @RequestParam String name){
 
+        MemberJoinDTO memberJoinDTO = MemberJoinDTO.builder()
+                .id(id)
+                .password(password)
+                .name(name).build();
         memberService.save(memberJoinDTO);
 
         return new ResponseEntity<String>("Join Success", HttpStatus.OK);
     }
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, @RequestBody String userId){
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request){
         //Session 만료
         HttpSession session = request.getSession(false);
 
@@ -59,7 +67,7 @@ public class MemberController {
 
         return new ResponseEntity<String>("logout Success", HttpStatus.OK);
     }
-    @PostMapping("/")
+    @GetMapping("/user")
     public ResponseEntity<String> findUsername(HttpServletRequest request){
         HttpSession session = request.getSession(false);
 
