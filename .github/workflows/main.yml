@@ -64,7 +64,7 @@ jobs: # job들을 정의하는 곳
             sudo docker stop session2 || true
 
             sudo docker rm session1 || true
-            sudo docker rm session1 || true
+            sudo docker rm session2 || true
             
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/docker-test-prod
             sudo docker run -d -p 9000:9000 --name session1 ${{ secrets.DOCKER_USERNAME }}/session-test 
