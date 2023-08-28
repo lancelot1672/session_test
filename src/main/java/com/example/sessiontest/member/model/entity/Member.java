@@ -1,10 +1,13 @@
 package com.example.sessiontest.member.model.entity;
 
+import com.example.sessiontest.board.model.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +23,7 @@ public class Member {
 
     private String name;
 
-
+    @OneToMany(mappedBy = "member")
+    private List<Board> boardList = new ArrayList<>();;
 
 }

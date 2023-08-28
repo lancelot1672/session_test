@@ -1,8 +1,13 @@
 package com.example.sessiontest.board.model.service;
 
-import org.springframework.stereotype.Service;
+import com.example.sessiontest.board.model.dto.BoardReadRes;
+import com.example.sessiontest.board.model.dto.BoardWriteReq;
 
-@Service
+import java.util.List;
+
+
 public interface BoardService {
-
+    void saveBoard(String userId, BoardWriteReq boardWriteReq);
+    BoardReadRes readBoard(Long boardId);
+    List<BoardReadRes> findAllBoards();
 }
