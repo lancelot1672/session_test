@@ -1,6 +1,7 @@
 package com.example.sessiontest.member.model.entity;
 
 import com.example.sessiontest.board.model.entity.Board;
+import com.example.sessiontest.comment.model.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,9 @@ public class Member {
     private String name;
 
     @OneToMany(mappedBy = "member")
-    private List<Board> boardList = new ArrayList<>();;
+    private List<Board> boardList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> commentList = new ArrayList<>();
 
 }
